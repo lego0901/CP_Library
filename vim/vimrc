@@ -1,0 +1,77 @@
+
+"**************** Common Settings ****************
+set encoding=utf-8
+
+set number autoindent smartindent hlsearch "ignorecase
+set tabstop=4
+set shiftwidth=4
+set foldmethod=marker
+
+syntax on
+
+set mouse+=an
+set ttymouse=xterm2
+
+set laststatus=2
+set backspace=indent,eol,start
+set autoread
+
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+nnoremap <C-a> ggVG
+inoremap <C-a> <ESC><C-a>
+vnoremap <C-c> "+y
+nnoremap <C-v> "+p
+vnoremap <C-v> d"+p
+inoremap <C-v> <ESC><C-v>
+
+map <C-Up> <C-w>k
+map <C-Down> <C-w>j
+map <C-Left> <C-w>h
+map <C-Right> <C-w>l
+
+
+
+"************** Plugins Installation **************
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+	Plugin 'VundleVim/Vundle.vim'
+	Plugin 'tpope/vim-fugitive'
+	Plugin 'L9'
+	Plugin 'The-NERD-tree'
+	"Plugin 'a.vim'
+	"Plugin 'c.vim'
+	"Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()
+filetype plugin indent on
+
+
+"************ NERDTree Plugin Settings ************
+imap <F2> <esc>:NERDTreeToggle<CR>
+nmap <F2> <esc>:NERDTreeToggle<CR>
+
+let NERDTreeIgnore = ['\.aux', 'c_out', '\.class', '\.fls', '\.log', '\.fdb_latexmk']
+let g:nerdtree_plugin_open_cmd = 'gnome-open'
+
+
+"***************** My Extensions *****************
+au BufRead *.latexrc set filetype=vim
+au BufRead *.cvimrc set filetype=vim
+au BufRead *.pythonvimrc set filetype=vim
+
+let $LATEXRC="~/.vim/.latexrc"
+source ~/.cvimrc
+source ~/.latexrc
+source ~/.pythonvimrc
+
+
+"****************** CUI Options ******************
+set background=light
+hi Folded ctermbg=8

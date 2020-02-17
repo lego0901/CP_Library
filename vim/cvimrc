@@ -1,0 +1,162 @@
+
+"****** Function keys to compile and execute ******
+au FileType cpp
+	\ nnoremap <F5> :wa<CR>:!clear && g++ -std=c++17 -Wall -Wextra
+	\ 	-Wfatal-errors -o ~/c/make % -DLOCAL_DEFINE |
+	\ nnoremap <S-F5> :wa<CR>:!clear && g++ -std=c++17 -Wall -Wextra
+	\	-Wfatal-errors -o ~/c/make % -DLOCAL_DEFINE -DDEBUG |
+	\ nnoremap <F6> :wa<CR>:!clear && ~/c/make < ~/c/input.txt >
+	\	~/c/output.txt |
+	\ nnoremap <S-F6> :wa<CR>:!clear && ~/c/make < ~/c/input.txt |
+	\ nnoremap <F7> :wa<CR>:!clear && ~/c/make |
+	\ nnoremap <C-F5> :wa<CR>:!clear && g++ -std=c++17 -Wall -Wextra
+	\	-Wfatal-errors -o ~/c/make2 % -DLOCAL_DEFINE |
+	\ nnoremap <C-S-F5> :wa<CR>:!clear && g++ -std=c++17 -Wall -Wextra
+	\	-Wfatal-errors -o ~/c/make2 % -DLOCAL_DEFINE -DDEBUG |
+	\ nnoremap <C-S-F6> :wa<CR>:!clear && ~/c/make2 < ~/c/input.txt |
+	\ nnoremap <C-F6> :wa<CR>:!clear && ~/c/make2 < ~/c/input.txt >
+	\	~/c/output.txt |
+	\ nnoremap <C-F7> :wa<CR>:!clear && ~/c/make2
+
+
+"********** Function Keys in Insert Mode **********
+au FileType cpp
+	\ imap <F5> <ESC><F5> |
+	\ imap <S-F5> <ESC><S-F5> |
+	\ imap <F6> <ESC><F6> |
+	\ imap <S-F6> <ESC><S-F6> |
+	\ imap <F7> <ESC><F7> |
+	\ imap <C-F5> <ESC><C-F5> |
+	\ imap <C-S-F5> <ESC><C-S-F5> |
+	\ imap <C-F6> <ESC><C-F6> |
+	\ imap <C-S-F6> <ESC><C-S-F6> |
+	\ imap <C-F7> <ESC><C-F7>
+
+
+"********** :Base<cr> to Load base.cpp  **********
+command! Base call CBase()
+function! CBase()
+	if (&ft == "cpp")
+		execute "normal! :w"
+		execute "!cp ~/c/library/base.cpp %"
+		execute ":1"
+	endif
+endfunction
+
+
+"******* Split Views for Input/Output Files*******
+au FileType cpp
+	\ nnoremap <C-p> :bo 32vs ~/c/output.txt <CR>:split ~/c/input.txt <CR> :w<CR> <C-w>h |
+	\ nnoremap <C-o> :%bd\|e#<CR>
+
+
+"******************* Key Binds *******************
+inoremap {<ENTER> {<ENTER>}<ESC>ko
+inoremap {<Space> {<Space><Space>}<ESC>hi
+inoremap {<Tab> {<ENTER><ESC>o}<ESC>kA
+inoremap {: {<Enter>}
+
+inoremap <C-e> <ESC><C-e>
+inoremap <C-y> <ESC><C-y>
+
+"for long codes: scroll bind view
+nnoremap <C-S-F7> :vsplit<CR> :exe "normal 2\< <BackSpace> C-W>w\< <BackSpace>C-F>"<CR> :windo setlocal scrollbind<CR>
+nnoremap <C-S-F8> :windo setlocal noscrollbind<CR>
+
+nnoremap <leader>t :w<CR>:TlistUpdate<CR>:TlistToggle<CR>
+
+au FileType cpp
+	\ nnoremap <leader>d o#ifdef DEBUG<cr>#endif<esc>k |
+	\ inoremap <leader>d #ifdef DEBUG<cr>#endif<esc>k |
+	\ nnoremap <leader>l :python3 print(get_cpp_library())<CR>
+
+au FileType cpp
+	\ nnoremap <leader>v /\/ ---- Woosung Song's Source Code ---- \/<cr> |
+	\ nnoremap <leader>m o//////// ---- Woosung Song's Source Code ---- ////////<cr><esc> |
+	\ inoremap <leader>m //////// ---- Woosung Song's Source Code ---- ////////
+
+
+"***************** Abbreviations *****************
+iabbrev algorihtm algorithm
+iabbrev namespcae namespace
+iabbrev ednl endl
+iabbrev endll endl
+iabbrev itn int
+
+
+
+
+
+"************** Plugins Installation **************
+python3 << endpython
+
+import vim, os
+
+CPP_SIGNATURE = '//////// ---- Woosung Song\'s Source Code ---- ////////'
+CPP_FOLD_BRACKET_START = '{'*3
+CPP_FOLD_BRACKET_END = '}'*3
+CPP_CODE_DIRECTORY = '/home/woosung/c/library/'
+CPP_EXTENSION = '.cpp'
+CPP_FOLD = True
+CPP_BASE_FILE = CPP_CODE_DIRECTORY + 'base.cpp'
+CPP_NOT_CODES = ['help', 'base', '', 'tmp']
+
+def get_escaped_string(s):
+	s = s.replace('\\', '\\\\')
+	s = s.replace('\'', '\'\'')
+	return s
+
+def get_cpp_line_number(s):
+	l = 0
+	lines = s.split('\n')
+	folded = 0
+	for line in lines:
+		if folded == 0:
+			l += 1
+		elif line.find(CPP_FOLD_BRACKET_END) != -1:
+			folded -= 1
+		if line.find(CPP_FOLD_BRACKET_START) != -1:
+			folded += 1
+	print(l)
+	return l
+
+def get_cpp_library():
+	cursor = vim.eval("expand('<cword>')").strip()
+	if cursor == "":
+		print(show_cpp_library())
+		return ''
+	try:
+		with open(CPP_CODE_DIRECTORY + cursor + CPP_EXTENSION, 'r') as f:
+			s = f.read()
+			st = s.find(CPP_SIGNATURE)
+			ed = s.rfind(CPP_SIGNATURE) + len(CPP_SIGNATURE) + 1
+			code = get_escaped_string(s[st:ed])
+			vim.command("execute 'normal! cc'")
+			vim.command("execute 'normal! I// library ''" + cursor + CPP_EXTENSION + "'''")
+			vim.command("execute 'normal! o'")
+			vim.eval("setreg('@', '" + code + "')")
+			vim.command("execute 'normal! pkkzf" + str(get_cpp_line_number(code)) + "j'")
+			f.close()
+			return 'the library \'' + cursor + '\' has been successfully loaded!!'
+	except IOError:
+		print('the library \'' + cursor + '\' doesn\'t exist!!')
+		print(show_cpp_library())
+		return ''
+
+def show_cpp_library(split=4, word_width=24):
+	files = [f[:-4] for f in os.listdir(CPP_CODE_DIRECTORY)]
+	files.sort()
+	cnt, pr = 0, "Available Libraries:\n" + ("-" * (word_width * split)) + "\n"
+	for name in files:
+		if name in CPP_NOT_CODES: continue
+		if name[0] == '.': continue
+		cnt += 1
+		pr += name + (" " * max(0, word_width - len(name)))
+		if cnt % split == 0:
+			pr += "\n"
+	if cnt % word_width != 0:
+		pr += "\n"
+	print(pr)
+
+endpython
+
