@@ -18,7 +18,7 @@ I upload this library to declare that these codes are **written by myself before
 
 - OS: Ubuntu 18.04.4 LTS
 - Compiler: g++ 7.4.0 with C++17
-- Programming: Vim 8.0 on Ubuntu Bash Shell
+- Programming: Vim 8.0 on Ubuntu Bash Shell (CUI)
   - Plugin 'VundleVim/Vundle.vim' is installed (But don't need to use on C++)
     - Plugin 'The-NERD-tree' is useful.
 - 'vimrc, cvimrc' inside ```/vim``` is located in the home directory, as named '.vimrc, .cvimrc'
@@ -42,6 +42,8 @@ In my case, I use the following file hierarchy.
 
 ```
 home
+├── .vimrc
+├── .cvimrc
 └── c
     ├── A.cpp
     ├── B.cpp
@@ -136,7 +138,7 @@ home
   - You might see that the ```class union_find``` is wrapped by the marks;
     - ```//////// ---- Woosung Song's Source Code ---- ////////```
   - When you press **<Leader + l>**, the content between the two marks is loaded.
-- The mark can be edited on ```.cvimrc```. It is made by Vim-Python script. But I don't recommend to do that because you will have to do so many things to edit them all..
+- The mark can be edited on ```.cvimrc```. It is written with Vim-Python script. But I don't recommend to do that because you will have to do so many things to edit them all..
 
 
 
@@ -187,7 +189,7 @@ home
     }
     ```
 
-    - The test code will not added if you import your library. (Since it is not wrapped inside the marks.)
+    - The test code will not be added if you import your library. (Since it is not wrapped inside the marks.)
 
 - You can easily add your own library just keeping the above basic structure.
 
