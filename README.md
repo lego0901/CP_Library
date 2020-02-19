@@ -6,7 +6,7 @@ I mainly use it for fast programming, and also for handling tricky codes like cy
 
 I made it to use by myself. The readability would be poor.
 
-I upload this library to declare that these codes are **written by myself before the contest.**
+I upload this library to declare that these codes are **all written by myself before the contest.**
 
 - Codeforces or e.t.c.
 
@@ -82,21 +82,21 @@ home
   $ vim c/X.cpp
   ```
 
-- Press **<Ctrl + p>** to show I/O files on the right side of the window.
+- Press **[Ctrl + p]** to show I/O files on the right side of the window.
 
   ![image1_IOshow](./pic_for_readme/image1_IOshow.png)
 
-- Focus on the main programming file window and press **<Ctrl + o>** to close I/O files.
+- Focus on the main programming file window and press **[Ctrl + o]** to close I/O files.
 
 - Type ```:Base``` to load ```~/c/library/base.cpp``` file.
 
   - You can edit the base file for your own preference.
 
-- Press **<Ctrl + F5, Enter>** to compile the .cpp file.
+- Press **[Ctrl + F5] [Enter]** to compile the .cpp file.
 
-- Press **<Ctrl + F6, Enter>** to run the compiled file reads input from ```input.txt``` and outputs ```output.txt```.
+- Press **[Ctrl + F6] [Enter]** to run the compiled file reads input from ```input.txt``` and outputs ```output.txt```.
 
-- Press **<Ctrl + F7, Enter>** to run the compiled file on the Bash Shell.
+- Press **[Ctrl + F7] [Enter]** to run the compiled file on the Bash Shell.
 
 - Other key binding are easily implemented on the ```cvimrc``` file.
 
@@ -108,17 +108,17 @@ home
 
 - Make sure that your cursor is located in the global variable declaration area. (Not inside a function.)
 
-- Press **<Leader + l>** to see what we have inside the ```~/c/library``` folder.
+- Press **[Leader + l]** to see what we have inside the ```~/c/library``` folder.
 
   - The default **Leader** key is **\\ (backslash)**.
 
-- If you want to load ```fast_fourier.cpp```, then type ```fast_fourier``` correctly on Vim(chop ```.cpp``` part), and press **<Esc>** to exit the Insert mode. And press **<Leader + l>**.
+- If you want to load ```fast_fourier.cpp```, then type ```fast_fourier``` correctly on Vim(chop ```.cpp``` part), and press **<Esc>** to exit the Insert mode. And press **[Leader + l]**.
 
-  - Before pressing **<Leader + l>**.
+  - Before pressing **[Leader + ]**.
 
     ![image2_cursor](./pic_for_readme/image2_cursor.png)
 
-  - After pressing **<Leader + l>**.
+  - After pressing **[Leader + l]**.
 
     ![image3_library_loaded](./pic_for_readme/image3_library_loaded.png)
 
@@ -126,7 +126,7 @@ home
 
     ![image4_folded_line](./pic_for_readme/image4_folded_line.png)
 
-  - A folded lines can be unfolded by pressing <Spacebar>. It can be unfolded by typing <zc>.
+  - A folded lines can be unfolded by pressing **[Spacebar]**. It can be unfolded by typing **[zc]**.
 
 
 
@@ -137,7 +137,7 @@ home
 - There are marks on every library code. For example, on ```union_find.cpp```, 
   - You might see that the ```class union_find``` is wrapped by the marks;
     - ```//////// ---- Woosung Song's Source Code ---- ////////```
-  - When you press **<Leader + l>**, the content between the two marks is loaded.
+  - When you press **[Leader + l]**, the content between the two marks is loaded.
 - The mark can be edited on ```.cvimrc```. It is written with Vim-Python script. But I don't recommend to do that because you will have to do so many things to edit them all..
 
 
