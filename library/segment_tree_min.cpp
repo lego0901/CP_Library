@@ -3,17 +3,17 @@
 using namespace std;
 
 //////// ---- Woosung Song's Source Code ---- ////////
-#ifndef SEGMENT_TREE_DEFINED
+#ifndef SEGMENT_TREE_MIN_DEFINED
 template <class dtype>
-class segment_tree {
+class segment_tree_min {
 	private:
-		dtype SGID = 0;
+		dtype SGID = numeric_limits<dtype>::max();
 
 		dtype update(int tn, int l, int r, int p, dtype v) {
 			if (l <= p && p <= r) {
 				if (l < r) {
 					int m = (l + r) / 2;
-					tree[tn] = update(tn*2, l, m, p, v) + update(tn*2+1, m+1, r, p, v);
+					tree[tn] = min(update(tn*2, l, m, p, v),update(tn*2+1, m+1, r, p, v));
 				} else tree[tn] = v;
 			}
 			return tree[tn];
@@ -24,7 +24,7 @@ class segment_tree {
 			else if (r < ql || qr < l) return SGID;
 			else {
 				int m = (l + r) / 2;
-				return sum(tn*2, l, m, ql, qr) + sum(tn*2+1, m+1, r, ql, qr);
+				return min(sum(tn*2, l, m, ql, qr), sum(tn*2+1, m+1, r, ql, qr));
 			}
 		}
 
@@ -33,8 +33,8 @@ class segment_tree {
 		int size;
 		vector<dtype> tree;
 
-		segment_tree<dtype>() {}
-		segment_tree<dtype>(int min_index, int max_index) {
+		segment_tree_min<dtype>() {}
+		segment_tree_min<dtype>(int min_index, int max_index) {
 			assert(min_index <= max_index);
 			this->min_index = min_index, this->max_index = max_index;
 			for (size=max_index-min_index+1; size&(size-1); size+=size&(-size));
@@ -54,7 +54,7 @@ class segment_tree {
 };
 #endif
 
-#define SEGMENT_TREE_DEFINED
+#define SEGMENT_TREE_MIN_DEFINED
 //////// ---- Woosung Song's Source Code ---- ////////
 
 typedef long long ll;
@@ -63,7 +63,7 @@ int main() {
 	int n, m, k;
 	scanf("%d%d%d", &n,&m,&k);
 	m += k;
-	segment_tree<ll> seg(1, n);
+	segment_tree_min<ll> seg(1, n);
 	for (int i=1; i<=n; i++) {
 		ll a; scanf("%lld", &a);
 		seg.update(i, a);
