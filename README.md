@@ -76,5 +76,7 @@ home
 
 - Press **<Ctrl + p>** to show I/O files on the right side of the window.
 
+  ![image1_IOshow](./pic_for_readme/image1_IOshow.png)
+
 - 
 
