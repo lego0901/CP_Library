@@ -4,9 +4,9 @@ An useful CP library on Vim editor.
 
 I mainly use it for fast programming, and also for handling tricky codes like cycle detection or SCC.
 
-I made it to use by myself. The readability would be poor.
+I made it to use by myself. The readability would be poor. I am planning to fix it to be more readable to anyone.
 
-I upload this library to declare that these codes are **all written by myself before the contest.**
+I upload this library to convince that these codes are **all written by myself before the contest.**
 
 - Codeforces or e.t.c.
 
