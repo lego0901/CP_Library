@@ -154,7 +154,7 @@ home
     using namespace std;
     ```
 
-  - Has the start mark with
+  - Has the start mark with (You can insert it by pressing **[Leader + m]**.)
 
     ```C++
     //////// ---- Woosung Song's Source Code ---- ////////
@@ -174,7 +174,7 @@ home
 
     - This is crucial to avoid the method overloading problem. (Which is not supported on C++.)
 
-  - The end mark with
+  - The end mark with (You can insert it by pressing **[Leader + m]**.)
 
     ```C++
     //////// ---- Woosung Song's Source Code ---- ////////
