@@ -35,6 +35,8 @@ class treap {
 		int num_nodes;/*}}}*/
 
 	public:
+		const static element_type ELEMENT_MAX = numeric_limits<element_type>::max();
+		const static element_type ELEMENT_MIN = numeric_limits<element_type>::min();
 		bool enable_duplicates;
 		treap(bool _enable_duplicates=1) : root(0), num_nodes(0), enable_duplicates(_enable_duplicates) {}
 
@@ -142,6 +144,20 @@ class treap {
 			else return n;
 		}
 
+		element_type __supremum(node *n, element_type key) {
+			if (!n) return ELEMENT_MAX;
+			if (n->key == key) return key;
+			else if (n->key < key) return __supremum(n->right, key);
+			else return min(__supremum(n->left, key), n->key);
+		}
+
+		element_type __infimum(node *n, element_type key) {
+			if (!n) return ELEMENT_MIN;
+			if (n->key == key) return key;
+			else if (n->key > key) return __infimum(n->left, key);
+			else return max(__infimum(n->right, key), n->key);
+		}
+
 		void __disable_duplicates(node *n) {
 			n->count = 1;
 			if (n->left) __disable_duplicates(n->left);
@@ -245,6 +261,16 @@ class treap {
 			return __smallest(root)->key;
 		}/*}}}*/
 
+		element_type supremum(element_type key) {/*{{{*/
+			// find the min_{k>=key} k
+			return __supremum(root, key);
+		}/*}}}*/
+
+		element_type infimum(element_type key) {/*{{{*/
+			// find the max_{k<=key} k
+			return __infimum(root, key);
+		}/*}}}*/
+
 		void set_duplicates(bool duplicates) {/*{{{*/
 			// allow duplicates or not
 			if (enable_duplicates == duplicates) return;
@@ -297,7 +323,9 @@ int main() {
 			 << "7 to count less" << endl
 			 << "8 to biggest" << endl
 			 << "9 to smallest" << endl
-			 << "10 to toggle duplicates" << endl;
+			 << "10 to supremum" << endl
+			 << "11 to infimum" << endl
+			 << "12 to toggle duplicates" << endl;
 		int o, a, b; cin >> o;
 		if (o==-1) break;
 		if (o==0) {
@@ -327,6 +355,12 @@ int main() {
 		} else if (o==9) {
 			cout << t.smallest() << endl;
 		} else if (o==10) {
+			cin >> a;
+			cout << t.supremum(a) << endl;
+		} else if (o==11) {
+			cin >> a;
+			cout << t.infimum(a) << endl;
+		} else if (o==12) {
 			t.set_duplicates(!t.enable_duplicates);
 		}
 	}

@@ -38,6 +38,8 @@ struct treap_sum {
 		int num_nodes;/*}}}*/
 
 	public:
+		const static element_type ELEMENT_MAX = numeric_limits<element_type>::max();
+		const static element_type ELEMENT_MIN = numeric_limits<element_type>::min();
 		sum_type sum;
 		bool enable_duplicates;
 		treap_sum(bool _enable_duplicates=1) : root(0), num_nodes(0), sum(0), enable_duplicates(_enable_duplicates) {}
@@ -165,6 +167,20 @@ struct treap_sum {
 		node* __smallest(node *n) {
 			if (n->left) return __smallest(n->left);
 			else return n;
+		}
+
+		element_type __supremum(node *n, element_type key) {
+			if (!n) return ELEMENT_MAX;
+			if (n->key == key) return key;
+			else if (n->key < key) return __supremum(n->right, key);
+			else return min(__supremum(n->left, key), n->key);
+		}
+
+		element_type __infimum(node *n, element_type key) {
+			if (!n) return ELEMENT_MIN;
+			if (n->key == key) return key;
+			else if (n->key > key) return __infimum(n->left, key);
+			else return max(__infimum(n->right, key), n->key);
 		}
 
 		void __disable_duplicates(node *n) {
@@ -301,6 +317,16 @@ struct treap_sum {
 			return __smallest(root)->key;
 		}/*}}}*/
 
+		element_type supremum(element_type key) {/*{{{*/
+			// find the min_{k>=key} k
+			return __supremum(root, key);
+		}/*}}}*/
+
+		element_type infimum(element_type key) {/*{{{*/
+			// find the max_{k<=key} k
+			return __infimum(root, key);
+		}/*}}}*/
+
 		void set_duplicates(bool duplicates) {/*{{{*/
 			// allow duplicates or not
 			if (enable_duplicates == duplicates) return;
@@ -359,7 +385,9 @@ int main() {
 			 << "12 to sum less" << endl
 			 << "13 to biggest" << endl
 			 << "14 to smallest" << endl
-			 << "15 to toggle duplicates" << endl;
+			 << "15 to supremum" << endl
+			 << "16 to infimum" << endl
+			 << "17 to toggle duplicates" << endl;
 		int o, a, b; cin >> o;
 		if (o==-1) break;
 		if (o==0) {
@@ -404,6 +432,12 @@ int main() {
 		} else if (o==14) {
 			cout << t.smallest() << endl;
 		} else if (o==15) {
+			cin >> a;
+			cout << t.supremum(a) << endl;
+		} else if (o==16) {
+			cin >> a;
+			cout << t.infimum(a) << endl;
+		} else if (o==17) {
 			t.set_duplicates(!t.enable_duplicates);
 		}
 	}
