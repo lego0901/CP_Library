@@ -13,7 +13,8 @@ class hash_substring {
 	const ll HASH_PRIMES[HASH_MAX] = {100403, 142433, 143779, 183203, 185099, 189583, 220537, 289039, 291869, 295033};
 
 		void make_hash_inv() {
-			ll p = hash_mod - 2, x = hash_prime, hash_inv = 1;
+			ll p = hash_mod - 2, x = hash_prime;
+			hash_inv = 1;
 			while (p) {
 				if (p&1) hash_inv = (hash_inv * x) % hash_mod;
 				x = (x * x) % hash_mod;
@@ -51,6 +52,8 @@ class hash_substring {
 			hash_mod = hs.hash_mod;
 			hash_prime = hs.hash_prime;
 			hash_inv = hs.hash_inv;
+			make_hash_inv();
+			set_string(s);
 		}
 
 		void set_string(string &s) {
