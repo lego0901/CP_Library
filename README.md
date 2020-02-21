@@ -10,7 +10,7 @@ I upload this library to convince that these codes are **all written by myself b
 
 - Codeforces or e.t.c.
 
-
+Korean Explanation: [My Blog Link](https://lego0901.tistory.com/4?category=757500)
 
 
 
@@ -114,7 +114,7 @@ home
 
 - If you want to load ```fast_fourier.cpp```, then type ```fast_fourier``` correctly on Vim(chop ```.cpp``` part), and press **<Esc>** to exit the Insert mode. And press **[Leader + l]**.
 
-  - Before pressing **[Leader + ]**.
+  - Before pressing **[Leader + l]**.
 
     ![image2_cursor](./pic_for_readme/image2_cursor.png)
 
@@ -191,5 +191,5 @@ home
 
     - The test code will not be added if you import your library. (Since it is not wrapped inside the marks.)
 
-- You can easily add your own library just keeping the above basic structure.
+- You can easily add your own library by just keeping the above basic structure.
 
