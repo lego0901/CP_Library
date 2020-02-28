@@ -53,7 +53,6 @@ class hash_substring {
 			hash_prime = hs.hash_prime;
 			hash_inv = hs.hash_inv;
 			make_hash_inv();
-			set_string(s);
 		}
 
 		void set_string(string &s) {
